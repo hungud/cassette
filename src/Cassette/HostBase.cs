@@ -107,7 +107,16 @@ namespace Cassette
 
         void RegisterUrlGenerator()
         {
-            container.Register<IUrlGenerator>((c, n) => new UrlGenerator(c.Resolve<IUrlModifier>(), c.Resolve<CassetteSettings>().SourceDirectory, "cassette.axd/"));
+            //container.Register<IUrlGenerator>((c, n) => new UrlGenerator(c.Resolve<IUrlModifier>(), c.Resolve<CassetteSettings>().SourceDirectory, "cassette.axd/"));
+            container.Register<IUrlGenerator>((c, n) =>
+                   {                       
+                       var cassette_settings = c.Resolve<CassetteSettings>();
+                       
+                       var cassette_handler_prefix = cassette_settings.CassetteHandlerPrefix;
+
+                       return new UrlGenerator(c.Resolve<IUrlModifier>(), cassette_settings.SourceDirectory, cassetteHandlerPrefix: cassette_handler_prefix + "/"); 
+                   }
+                );
         }
 
         void RegisterCache()
@@ -172,7 +181,7 @@ namespace Cassette
         }
 
         protected abstract IConfiguration<CassetteSettings> CreateHostSpecificSettingsConfiguration();
- 
+
         void RegisterBundleFactoryProvider()
         {
             container.Register(
@@ -298,7 +307,7 @@ namespace Cassette
 
         IEnumerable<Type> GetImplementationTypes(Type baseType)
         {
-            return allTypes.Where(baseType.IsAssignableFrom); 
+            return allTypes.Where(baseType.IsAssignableFrom);
         }
 
         IPlaceholderTracker CreatePlaceholderTracker(TinyIoCContainer currentContainer)
@@ -347,7 +356,7 @@ namespace Cassette
         public virtual void Dispose()
         {
             var local = container;
-            if (local != null) 
+            if (local != null)
             {
                 local.Dispose();
             }

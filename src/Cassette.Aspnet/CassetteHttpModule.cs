@@ -106,12 +106,41 @@ namespace Cassette.Aspnet
             // http://connect.microsoft.com/VisualStudio/feedback/details/221796/built-in-web-server-does-not-handle-an-ashx-handler-with-virtual-file-path
             // So we rewrite to the correct path.
             var path = HttpContext.Current.Request.AppRelativeCurrentExecutionFilePath;
-            if (path.StartsWith("~/cassette.axd/", StringComparison.OrdinalIgnoreCase) && HttpContext.Current.Request.PathInfo == "")
+
+            //get cassette_handler_prefix
+            Cassette.TinyIoC.TinyIoCContainer container = new TinyIoC.TinyIoCContainer();
+            
+            var cassette_settings = container.Resolve<CassetteSettings>();
+
+            var cassette_handler_prefix = cassette_settings.CassetteHandlerPrefix;
+
+            if (path.StartsWith("~/" + cassette_handler_prefix + "/", StringComparison.OrdinalIgnoreCase) && HttpContext.Current.Request.PathInfo == "")
             {
-                var match = Regex.Match(path, @"^  ~/cassette\.axd  (?<pathInfo> [^?]* )  ( \? (?<queryString> .* ) )?  $", RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+                var cassette_handler_prefix_name = cassette_handler_prefix;
+                var cassette_handler_prefix_ext = string.Empty;
+                if (cassette_handler_prefix.IndexOf(".") > 0)
+                {
+                   var ary_prefix_name_ext = cassette_handler_prefix.Split('.');
+                   cassette_handler_prefix_name = ary_prefix_name_ext[0];
+                   cassette_handler_prefix_ext = ary_prefix_name_ext[1];
+                }
+
+                //var match = Regex.Match(path, @"^  ~/cassette\.axd  (?<pathInfo> [^?]* )  ( \? (?<queryString> .* ) )?  $", RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+                Match match = null;
+
+                if (string.IsNullOrWhiteSpace(cassette_handler_prefix_ext))
+                {
+                    match = Regex.Match(path, @"^  ~/"+ cassette_handler_prefix_name + @" (?<pathInfo> [^?]* )  ( \? (?<queryString> .* ) )?  $", RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+                }
+                else {
+                    match = Regex.Match(path, @"^  ~/"+ cassette_handler_prefix_name + @"\."+ cassette_handler_prefix_ext + @"  (?<pathInfo> [^?]* )  ( \? (?<queryString> .* ) )?  $", RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+                }
+
                 var pathInfo = match.Groups["pathInfo"].Value;
                 var queryString = match.Groups["queryString"].Value;
-                HttpContext.Current.RewritePath("~/cassette.axd", pathInfo, queryString);
+
+                //HttpContext.Current.RewritePath("~/cassette.axd", pathInfo, queryString);
+                HttpContext.Current.RewritePath("~/" + cassette_handler_prefix, pathInfo, queryString);
             }
         }
 

@@ -13,6 +13,7 @@ namespace Cassette.Aspnet
         readonly HttpRequestBase request;
         readonly MimeMappingWrapper mimeMapping;
         readonly Action<string> rewritePath;
+        CassetteSettings cassetteSettings;
 
         public RawFileRequestRewriter(HttpContextBase context, IFileAccessAuthorization fileAccessAuthorization, IFileContentHasher fileContentHasher)
             : this(context, fileAccessAuthorization, fileContentHasher, HttpRuntime.UsingIntegratedPipeline)
@@ -38,8 +39,13 @@ namespace Cassette.Aspnet
                 // Only required for classic pipeline
                 mimeMapping = new MimeMappingWrapper();
             }
+
+            //get cassette settings
+            TinyIoC.TinyIoCContainer container = new TinyIoC.TinyIoCContainer();
+            cassetteSettings = container.Resolve<CassetteSettings>();
         }
 
+        //cache 1 year raw file
         public void Rewrite()
         {
             if (!IsCassetteRequest()) return;
@@ -94,7 +100,11 @@ namespace Cassette.Aspnet
 
         bool IsCassetteRequest()
         {
-            return request.AppRelativeCurrentExecutionFilePath.StartsWith("~/cassette.axd", StringComparison.OrdinalIgnoreCase);
+            //get cassette_handler_prefix
+            var cassette_handler_prefix = cassetteSettings.CassetteHandlerPrefix;
+
+            //check and return
+            return request.AppRelativeCurrentExecutionFilePath.StartsWith("~/" + cassette_handler_prefix, StringComparison.OrdinalIgnoreCase);
         }
 
         bool TryGetFilePath(out string path)

@@ -38,5 +38,14 @@ namespace Cassette
             get { return (bool)this["isolatedStoragePerDomain"]; }
             set { this["isolatedStoragePerDomain"] = value; }
         }
+
+        [ConfigurationProperty("cassetteHandlerPrefix", DefaultValue = "cassette.axd")]
+        public string CassetteHandlerPrefix
+        {
+            get { 
+                return (string)this["cassetteHandlerPrefix"]; 
+            }
+            set { this["cassetteHandlerPrefix"] = value; }
+        }
     }
 }
