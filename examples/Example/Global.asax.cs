@@ -16,7 +16,6 @@ namespace Example
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            routes.IgnoreRoute("{resource}.abc/{*pathInfo}");
 
             routes.MapRoute(
                 "Color",
