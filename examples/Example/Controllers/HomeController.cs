@@ -11,6 +11,14 @@ namespace Example.Controllers
                 colorsUrl = Url.RouteUrl("Colors") 
             });
         }
+
+        public ActionResult Index2()
+        {
+            return View(new
+            {
+                colorsUrl = Url.RouteUrl("Colors")
+            });
+        }
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -15,6 +16,16 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
+    <MvcProjectUpgradeChecked>true</MvcProjectUpgradeChecked>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,9 +45,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages" />
-    <Reference Include="System.Web.Helpers" />
+    <Reference Include="System.Web.Helpers">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -78,10 +91,14 @@
     <Content Include="Scripts\color-picker\page.js" />
     <Content Include="Scripts\color-picker\ColorViewModel.js" />
     <Content Include="Scripts\color-picker\slider.js" />
+    <Content Include="Scripts\core\core.js" />
+    <Content Include="Scripts\core\core2.js" />
     <Content Include="Scripts\jquery\bundle.txt" />
     <Content Include="Scripts\lib\Class.js" />
     <Content Include="Scripts\lib\jquery.tmpl.js" />
     <Content Include="Scripts\lib\knockout.js" />
+    <Content Include="Scripts\module\module1.js" />
+    <Content Include="Scripts\Views\Home\Index2.js" />
     <Content Include="Styles\color-picker\images\color_swatch.png" />
     <Content Include="Styles\app\site.css" />
     <Content Include="Scripts\app\namespace.js" />
@@ -137,7 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Cassette.Aspnet\Cassette.Aspnet.csproj">
-      <Project>{733F8032-D649-4E4C-A23E-4A048C33FCAE}</Project>
+      <Project>{733f8032-d649-4e4c-a23e-4a048c33fcae}</Project>
       <Name>Cassette.Aspnet</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Cassette.Less\Cassette.Less.csproj">
@@ -149,12 +166,20 @@
       <Name>Cassette.Views</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Cassette\Cassette.csproj">
-      <Project>{A5CCF9D3-5D49-4BFC-B9A6-9EC9E0E29C50}</Project>
+      <Project>{a5ccf9d3-5d49-4bfc-b9a6-9ec9e0e29c50}</Project>
       <Name>Cassette</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index2.cshtml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
