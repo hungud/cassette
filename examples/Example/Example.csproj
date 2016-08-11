@@ -93,11 +93,17 @@
     <Content Include="Scripts\color-picker\slider.js" />
     <Content Include="Scripts\core\core.js" />
     <Content Include="Scripts\core\core2.js" />
+    <Content Include="Scripts\Desktop\Views\Account\Index\Index.js" />
+    <Content Include="Scripts\Desktop\Views\Account\Login\Login.js" />
+    <Content Include="Scripts\Desktop\Views\Index\index.js" />
+    <Content Include="Scripts\Desktop\Views\Index\index_utils.js" />
     <Content Include="Scripts\jquery\bundle.txt" />
     <Content Include="Scripts\lib\Class.js" />
     <Content Include="Scripts\lib\jquery.tmpl.js" />
     <Content Include="Scripts\lib\knockout.js" />
     <Content Include="Scripts\module\module1.js" />
+    <Content Include="Scripts\module\module2.js" />
+    <Content Include="Scripts\module\module3\module3.js" />
     <Content Include="Scripts\Views\Home\Index2.js" />
     <Content Include="Styles\color-picker\images\color_swatch.png" />
     <Content Include="Styles\app\site.css" />
@@ -173,6 +179,13 @@
   <ItemGroup>
     <Content Include="Views\Home\Index2.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

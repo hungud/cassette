@@ -404,19 +404,37 @@ namespace Cassette
             var directories = parentDirectory.GetDirectories().Where(IsNotHidden);
             foreach (var directory in directories)
             {
+
+                AddDirectory(fileSearch, directory, customizeBundle, bundleFactory);
+
+            }
+        }
+
+        public void AddDirectory<T>(IFileSearch fileSearch, IDirectory directory, Action<T> customizeBundle, IBundleFactory<T> bundleFactory) where T : Bundle
+        {
+            var directory_childs = directory.GetDirectories();
+            if (directory_childs.Count() == 0)
+            {
                 Trace.Source.TraceInformation(string.Format("Creating {0} for {1}", typeof(T).Name, directory.FullPath));
                 var allFiles = fileSearch.FindFiles(directory).ToArray();
 
                 var descriptorFile = TryGetDescriptorFile<T>(directory);
                 var descriptor = ReadOrCreateBundleDescriptor(descriptorFile);
 
-                if (!allFiles.Any() && descriptor.ExternalUrl == null) continue;
+                if (!allFiles.Any() && descriptor.ExternalUrl == null) return;
 
                 var bundle = bundleFactory.CreateBundle(directory.FullPath, allFiles, descriptor);
                 if (customizeBundle != null) customizeBundle(bundle);
                 TraceAssetFilePaths(bundle);
                 Add(bundle);
             }
+            else
+            {
+                foreach (var directory_child in directory_childs)
+                {
+                    AddDirectory(fileSearch, directory_child, customizeBundle, bundleFactory);
+                }
+            }           
         }
 
         public void AddUrlWithLocalAssets(string url, LocalAssetSettings localAssetSettings, Action<Bundle> customizeBundle = null)
