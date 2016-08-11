@@ -97,6 +97,7 @@
     <Content Include="Scripts\core\core.js" />
     <Content Include="Scripts\core\core2.js" />
     <Content Include="Scripts\core\core3.js" />
+    <Content Include="Scripts\core\core4.js" />
     <Content Include="Scripts\jonetour\comments.js" />
     <Content Include="Scripts\jonetour\core\helpers\context.js" />
     <Content Include="Scripts\jonetour\core\helpers\datetime.js" />
@@ -378,6 +379,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index2.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Layout_Cache.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\rewrite.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
