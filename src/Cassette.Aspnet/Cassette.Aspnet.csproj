@@ -76,6 +76,8 @@
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="CachedFileRequestHandler.cs" />
+    <Compile Include="CassetteBundleCollectionExtensions.cs" />
+    <Compile Include="CassetteBundleCollectionExtensions_PartialClass_Recursively.cs" />
     <Compile Include="DiagnosticBundleConfiguration.cs" />
     <Compile Include="CassetteHttpHandler.cs" />
     <Compile Include="HttpContextLifetimeProvider.cs" />
