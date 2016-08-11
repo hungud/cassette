@@ -6,9 +6,20 @@ namespace Example.Controllers
     {
         public ActionResult Index()
         {
-            return View(new 
-            { 
-                colorsUrl = Url.RouteUrl("Colors") 
+            var bundle_cache_count = 0;
+            if (OneTour.Class.Helper.Core.MemCache.GlobalMemCache.IsSet("BUNDLE"))
+            {
+                bundle_cache_count = OneTour.Class.Helper.Core.MemCache.GlobalMemCache.Get("BUNDLE");
+                bundle_cache_count++;
+            }
+
+            OneTour.Class.Helper.Core.MemCache.GlobalMemCache.Set("BUNDLE", bundle_cache_count);
+
+            ViewBag.BundleCacheCount = bundle_cache_count;
+
+            return View(new
+            {
+                colorsUrl = Url.RouteUrl("Colors")
             });
         }
 
