@@ -13,14 +13,14 @@ namespace Cassette.Aspnet
         readonly HttpRequestBase request;
         readonly MimeMappingWrapper mimeMapping;
         readonly Action<string> rewritePath;
-        CassetteSettings cassetteSettings;
+        readonly CassetteSettings settings;
 
-        public RawFileRequestRewriter(HttpContextBase context, IFileAccessAuthorization fileAccessAuthorization, IFileContentHasher fileContentHasher)
-            : this(context, fileAccessAuthorization, fileContentHasher, HttpRuntime.UsingIntegratedPipeline)
+        public RawFileRequestRewriter(CassetteSettings settings, HttpContextBase context, IFileAccessAuthorization fileAccessAuthorization, IFileContentHasher fileContentHasher)
+            : this(settings, context, fileAccessAuthorization, fileContentHasher, HttpRuntime.UsingIntegratedPipeline)
         {
         }
 
-        public RawFileRequestRewriter(HttpContextBase context, IFileAccessAuthorization fileAccessAuthorization, IFileContentHasher fileContentHasher, bool usingIntegratedPipeline)
+        public RawFileRequestRewriter(CassetteSettings settings, HttpContextBase context, IFileAccessAuthorization fileAccessAuthorization, IFileContentHasher fileContentHasher, bool usingIntegratedPipeline)
         {
             this.context = context;
             this.fileAccessAuthorization = fileAccessAuthorization;
@@ -41,8 +41,7 @@ namespace Cassette.Aspnet
             }
 
             //get cassette settings
-            TinyIoC.TinyIoCContainer container = new TinyIoC.TinyIoCContainer();
-            cassetteSettings = container.Resolve<CassetteSettings>();
+            this.settings = settings;
         }
 
         //cache 1 year raw file
@@ -101,7 +100,7 @@ namespace Cassette.Aspnet
         bool IsCassetteRequest()
         {
             //get cassette_handler_prefix
-            var cassette_handler_prefix = cassetteSettings.CassetteHandlerPrefix;
+            var cassette_handler_prefix = settings.CassetteHandlerPrefix;
 
             //check and return
             return request.AppRelativeCurrentExecutionFilePath.StartsWith("~/" + cassette_handler_prefix, StringComparison.OrdinalIgnoreCase);

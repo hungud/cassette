@@ -30,6 +30,7 @@ namespace Cassette.Aspnet
             settings.CacheDirectory = GetCacheDirectory(configurationSection);
             settings.IsFileSystemWatchingEnabled = TrustLevel.IsFullTrust() && !IsStaticCacheManifest(settings);
             settings.CassetteHandlerPrefix = configurationSection.CassetteHandlerPrefix;
+            settings.DiagnosticPageName = configurationSection.DiagnosticPageName;
 
             IsStaticCacheManifest(settings);
 

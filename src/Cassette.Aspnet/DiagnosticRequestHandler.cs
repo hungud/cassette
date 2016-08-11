@@ -36,8 +36,8 @@ namespace Cassette.Aspnet
 
             if (!CanAccessHud(request))
             {
-                response.StatusCode = (int) HttpStatusCode.NotFound;
-                throw new HttpException((int) HttpStatusCode.NotFound, "Not found");
+                response.StatusCode = (int)HttpStatusCode.NotFound;
+                throw new HttpException((int)HttpStatusCode.NotFound, "Not found");
             }
 
             if (request.HttpMethod.Equals("post", StringComparison.OrdinalIgnoreCase))
@@ -46,10 +46,20 @@ namespace Cassette.Aspnet
                 return;
             }
 
+
             Bundles.AddPageData("data", PageData());
             Bundles.Reference("~/Cassette.Aspnet.Resources");
 
-            var html = Properties.Resources.hud;
+            var html = string.Empty;
+            if (this.settings.DiagnosticPageName == "hud")
+            {
+                html = Properties.Resources.hud;
+            }
+            else if (this.settings.DiagnosticPageName == "tvhud")
+            {
+                html = Properties.Resources.tvhud;
+            }
+            
             html = html.Replace("$scripts$", Bundles.RenderScripts().ToHtmlString());
             response.ContentType = "text/html";
             response.Write(html);

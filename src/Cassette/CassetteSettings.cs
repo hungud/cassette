@@ -57,5 +57,7 @@ namespace Cassette
         public bool IsFileSystemWatchingEnabled { get; set; }
 
         public string CassetteHandlerPrefix { get; set; }
+
+        public string DiagnosticPageName { get; set; }
     }
 }

@@ -47,5 +47,15 @@ namespace Cassette
             }
             set { this["cassetteHandlerPrefix"] = value; }
         }
+
+        [ConfigurationProperty("diagnosticPageName", DefaultValue = "hud")]
+        public string DiagnosticPageName
+        {
+            get
+            {
+                return (string)this["diagnosticPageName"];
+            }
+            set { this["diagnosticPageName"] = value; }
+        }
     }
 }
