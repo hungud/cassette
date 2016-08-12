@@ -11,7 +11,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Hosting;
 
-namespace OneTour.Admin.Mvc
+namespace Cassette.Aspnet
 {
     public static partial class CassetteBundleCollectionExtensions
     {
