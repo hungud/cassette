@@ -60,7 +60,7 @@ namespace Cassette.Aspnet
                 {
                     var sub_dir_path = AppendToRelativePath(applicationRelativePath, sub_dir);
 
-                    bundles.AddBundleCss(sub_dir_path, customize);
+                    bundles.AddBundleJs(sub_dir_path, customize);
                 }
             }
             else
@@ -163,7 +163,7 @@ namespace Cassette.Aspnet
                 {
                     var sub_dir_path = AppendToRelativePath(applicationRelativePath, sub_dir);
 
-                    bundles.AddBundleCss(sub_dir_path, customize);
+                    bundles.AddBundleHtml(sub_dir_path, customize);
                 }
             }
             else
