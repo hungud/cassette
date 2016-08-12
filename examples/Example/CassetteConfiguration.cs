@@ -2,6 +2,7 @@
 using Cassette.HtmlTemplates;
 using Cassette.Scripts;
 using Cassette.Stylesheets;
+using Cassette.Aspnet;
 
 namespace Example
 {
@@ -24,14 +25,14 @@ namespace Example
 
 
             bundles.AddScriptsRecursively("Scripts");
-            //bundles.AddUrlWithAlias(
-            //    "http://platform.twitter.com/widgets.js",
-            //    "twitter",
-            //    b =>
-            //    {
-            //        b.PageLocation = "body";
-            //        b.HtmlAttributes.Add(new { async = "async" });                    
-            //    });
+            bundles.AddUrlWithAlias(
+                "http://platform.twitter.com/widgets.js",
+                "twitter",
+                b =>
+                {
+                    b.PageLocation = "body";
+                    b.HtmlAttributes.Add(new { async = "async" });
+                });
 
             bundles.AddPerSubDirectory<HtmlTemplateBundle>("HtmlTemplates");
             bundles.AddStylesheetsRecursively("Styles");
