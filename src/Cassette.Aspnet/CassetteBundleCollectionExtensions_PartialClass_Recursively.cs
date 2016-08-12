@@ -52,13 +52,21 @@ namespace Cassette.Aspnet
 
             var directory = GetFileSystemPath(applicationRelativePath);
 
-            directory
-                .GetDirectories()
-                .Select(subdirectory => AppendToRelativePath(applicationRelativePath, subdirectory))
-                .ToList()
-                .ForEach(path => bundles.AddBundleJs(path, customize));
+            var sub_dirs = directory.GetDirectories().ToList();
 
-            bundles.Add(applicationRelativePath, searcher, customize);
+            if (sub_dirs.Count > 0)
+            {
+                foreach (var sub_dir in sub_dirs)
+                {
+                    var sub_dir_path = AppendToRelativePath(applicationRelativePath, sub_dir);
+
+                    bundles.AddBundleCss(sub_dir_path, customize);
+                }
+            }
+            else
+            {
+                bundles.Add(applicationRelativePath, searcher, customize);
+            }
         }
 
         public static void AddScriptsRecursively(
@@ -97,13 +105,21 @@ namespace Cassette.Aspnet
 
             var directory = GetFileSystemPath(applicationRelativePath);
 
-            directory
-                .GetDirectories()
-                .Select(subdirectory => AppendToRelativePath(applicationRelativePath, subdirectory))
-                .ToList()
-                .ForEach(path => bundles.AddBundleCss(path, customize));
+            var sub_dirs = directory.GetDirectories().ToList();
 
-            bundles.Add(applicationRelativePath, searcher, customize);
+            if (sub_dirs.Count > 0)
+            {
+                foreach (var sub_dir in sub_dirs)
+                {
+                    var sub_dir_path = AppendToRelativePath(applicationRelativePath, sub_dir);
+
+                    bundles.AddBundleCss(sub_dir_path, customize);
+                }
+            }
+            else
+            {
+                bundles.Add(applicationRelativePath, searcher, customize);
+            }           
         }
 
         public static void AddStylesheetsRecursively(
@@ -139,13 +155,21 @@ namespace Cassette.Aspnet
 
             var directory = GetFileSystemPath(applicationRelativePath);
 
-            directory
-                .GetDirectories()
-                .Select(subdirectory => AppendToRelativePath(applicationRelativePath, subdirectory))
-                .ToList()
-                .ForEach(path => bundles.AddBundleHtml(path, customize));
+            var sub_dirs = directory.GetDirectories().ToList();
 
-            bundles.Add(applicationRelativePath, searcher, customize);
+            if (sub_dirs.Count > 0)
+            {
+                foreach (var sub_dir in sub_dirs)
+                {
+                    var sub_dir_path = AppendToRelativePath(applicationRelativePath, sub_dir);
+
+                    bundles.AddBundleCss(sub_dir_path, customize);
+                }
+            }
+            else
+            {
+                bundles.Add(applicationRelativePath, searcher, customize);
+            }
         }
         public static void AddHtmlTemplatesRecursively(
             this BundleCollection bundles,
