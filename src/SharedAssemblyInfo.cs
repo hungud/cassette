@@ -4,7 +4,7 @@
 [assembly: AssemblyProduct("Cassette")]
 [assembly: AssemblyCopyright("Copyright © 2011 Andrew Davey, @ 2016 Tam Vương")]
 
-[assembly: AssemblyInformationalVersion("3.0.1")]
+[assembly: AssemblyInformationalVersion("3.0.2")]
 
-[assembly: AssemblyVersion("3.0.1.*")]
-[assembly: AssemblyFileVersion("3.0.1.0")]
+[assembly: AssemblyVersion("3.0.2.*")]
+[assembly: AssemblyFileVersion("3.0.2.0")]
