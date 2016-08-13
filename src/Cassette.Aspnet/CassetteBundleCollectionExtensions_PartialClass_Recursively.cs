@@ -63,10 +63,8 @@ namespace Cassette.Aspnet
                     bundles.AddBundleJs(sub_dir_path, customize);
                 }
             }
-            else
-            {
-                bundles.Add(applicationRelativePath, searcher, customize);
-            }
+
+            bundles.Add(applicationRelativePath, searcher, customize);
         }
 
         public static void AddScriptsRecursively(
@@ -116,10 +114,8 @@ namespace Cassette.Aspnet
                     bundles.AddBundleCss(sub_dir_path, customize);
                 }
             }
-            else
-            {
-                bundles.Add(applicationRelativePath, searcher, customize);
-            }           
+
+            bundles.Add(applicationRelativePath, searcher, customize);
         }
 
         public static void AddStylesheetsRecursively(
@@ -166,10 +162,8 @@ namespace Cassette.Aspnet
                     bundles.AddBundleHtml(sub_dir_path, customize);
                 }
             }
-            else
-            {
-                bundles.Add(applicationRelativePath, searcher, customize);
-            }
+
+            bundles.Add(applicationRelativePath, searcher, customize);
         }
         public static void AddHtmlTemplatesRecursively(
             this BundleCollection bundles,

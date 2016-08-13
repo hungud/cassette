@@ -27,7 +27,8 @@ namespace Cassette
         readonly ReaderWriterLockSlim readerWriterLock = new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
         Dictionary<Bundle, HashedSet<Bundle>> bundleImmediateReferences;
         Exception initializationException;
-       
+        ErrorCollectingException errorCollectingException;
+
 
         public BundleCollection(CassetteSettings settings, IFileSearchProvider fileSearchProvider, IBundleFactoryProvider bundleFactoryProvider, IBundleCollectionInitializer bundleCollectionInitializer)
         {
@@ -54,6 +55,29 @@ namespace Cassette
                 using (GetWriteLock())
                 {
                     initializationException = value;
+
+                    //add more here
+                    //https://github.com/mhoyer/cassette/blob/844de32c9e8566d53547ef33aefe4c0829ebf9ba/src/Cassette/BundleCollection.cs
+                    if (value == null)
+                    {
+                        // reset our collected exceptions
+                        errorCollectingException = null;
+                        return;
+                    }
+
+                    if (errorCollectingException == null)
+                    {
+                        errorCollectingException = new ErrorCollectingException();
+                    }
+
+                    errorCollectingException.Exceptions.Add(value);
+
+                    if (errorCollectingException.Exceptions.Count > 32 || value is ThreadAbortException)
+                    {
+                        throw errorCollectingException;
+                    }
+
+                    Thread.Sleep(50); // HACK to give background thingy time to release resources (file handles or similar - not sure)
                 }
             }
         }

@@ -110,6 +110,7 @@
     <Compile Include="ConfigurationOrderAttribute.cs" />
     <Compile Include="ContainerConfiguration.cs" />
     <Compile Include="Diagnostics\Trace.cs" />
+    <Compile Include="ErrorCollectingException.cs" />
     <Compile Include="ExceptionCatchingBundleCollectionInitializer.cs" />
     <Compile Include="FileAccessAuthorization.cs" />
     <Compile Include="FileContentHasher.cs" />
