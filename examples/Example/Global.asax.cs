@@ -1,5 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using CacheManager.Core;
+using System;
 
 namespace Example
 {
@@ -35,12 +37,19 @@ namespace Example
 
         }
 
+        public static ICacheManager<int> DEFAULT_CACHE;
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            DEFAULT_CACHE = CacheFactory.Build<int>("defaultCache", settings => settings
+           .WithUpdateMode(CacheUpdateMode.Full)
+           .WithSystemRuntimeCacheHandle("defaultCacheHandle")
+           .WithExpiration(ExpirationMode.Sliding, TimeSpan.FromHours(1)));
         }
     }
 }

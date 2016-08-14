@@ -7,16 +7,10 @@ namespace Example.Controllers
     public class HomeController : Controller
     {
         private readonly ICacheManager<int> cache;
-
+     
         public HomeController()
         {
-            if (this.cache == null)
-            {
-                this.cache = CacheFactory.Build<int>("cacheName", settings => settings
-           .WithUpdateMode(CacheUpdateMode.Full)
-           .WithSystemRuntimeCacheHandle("handleName")
-               .WithExpiration(ExpirationMode.Sliding, TimeSpan.FromHours(1)));
-            }
+            cache = Example.MvcApplication.DEFAULT_CACHE;
         }
 
         public ActionResult Index()
